@@ -20,14 +20,15 @@
 </template>
 
 <script>
+import { generateUniqueId } from "../helpers";
+
 export default {
   name: "AddTodo",
   methods: {
     onFormSubmit: function () {
-      console.log("onFormSubmit called", this.taskName);
       if (this.taskName.trim().length > 0) {
         const newTodo = {
-          id: Math.random().toString(16).slice(2),
+          id: generateUniqueId(),
           name: this.taskName,
           isDone: false,
         };

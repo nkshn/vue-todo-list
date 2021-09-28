@@ -6,7 +6,8 @@
     <div class="task-item-left">
       <input
         type="checkbox"
-        v-on:change="todo.isDone = !todo.isDone"
+        :checked="todo.isDone"
+        @change="todo.isDone = !todo.isDone"
       /> 
       <p>{{ todo.name }}</p>
     </div>

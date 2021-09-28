@@ -1,16 +1,13 @@
 <template>
   <div id="app">
     <Title name="ToDo List" />
-    <AddTodo
-      v-on:add-todo="addTodo"
-    />
+    <AddTodo v-on:add-todo="addTodo" />
     <TodoList
       v-bind:todos="todos"
       v-on:remove-todo="removeTodo"
+      v-on:edit-todo="editTodo"
     />
-    <Bottom
-      v-bind:todos="todos"
-    />
+    <Bottom v-bind:todos="todos" />
   </div>
 </template>
 
@@ -20,6 +17,11 @@ import Title from "./components/Title.vue";
 import TodoList from "./components/TodoList.vue";
 import Bottom from "./components/Bottom.vue";
 
+import {
+  saveLocalStorage,
+  getLocalStorage
+} from "./helpers";
+
 export default {
   name: "App",
   data: function () {
@@ -28,23 +30,26 @@ export default {
     };
   },
   methods: {
-    removeTodo: function (todoId) {
-      console.log("Removing task " + todoId);
-      this.todos = this.todos.filter(item => item.id !== todoId);
-    },
-    addTodo: function (todo) {
-      console.log("Adding task ", todo);
+    addTodo(todo) {
       this.todos.push(todo);
+    },
+    removeTodo(todoId) {
+      this.todos = this.todos.filter((item) => item.id !== todoId);
+    },
+    editTodo(todo) {
+      console.log("Edited todo: ", todo);
     }
+  },
+  mounted() {
+    this.todos = getLocalStorage() || [];
   },
   watch: {
     todos: {
-      handler: function (newValue, oldValue) {
-        console.log("Watching todos ", " newVal: ", newValue, " oldoldVal: ", oldValue);
-        // TODO: save to localStorage newValue as new todo list
+      handler(newValue) {
+        saveLocalStorage(newValue);
       },
       deep: true,
-    }
+    },
   },
   components: {
     AddTodo,

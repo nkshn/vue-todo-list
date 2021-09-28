@@ -14,6 +14,7 @@
           v-bind:todo="todo"
           :key="todo.id"
           v-on:remove-todo="removeTodo"
+          v-on:edit-todo="editTodo"
         />
       </div>
     </template>
@@ -43,6 +44,9 @@ export default {
   methods: {
     removeTodo: function (todoId) {
       this.$emit("remove-todo", todoId);
+    },
+    editTodo: function (todoId) {
+      this.$emit("edit-todo", todoId);
     },
   },
   components: {

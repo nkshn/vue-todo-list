@@ -1,14 +1,16 @@
-import constants from "../constants/index";
+import { LOCAL_STORAGE_KEY } from "../constants";
 
-function generateUniqueId() {
+// generate unique id for todo
+export function generateUniqueId() {
   return Math.random().toString(16).slice(2);
 }
 
-function saveLocalStorage(data) {
-  window.localStorage.setItem(constants.LOCAL_STORAGE_KEY, JSON.stringify(data));
+// get todo's from localStorage
+export function getLocalStorage() {
+  return JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY))
 }
 
-module.exports = {
-  genUniqueId: generateUniqueId(),
-  saveToLocalStorage: saveLocalStorage()
+// save data to localStorage
+export function saveLocalStorage(data) {
+  window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
 }
