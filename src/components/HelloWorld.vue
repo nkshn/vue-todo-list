@@ -15,8 +15,9 @@
           href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel"
           target="_blank"
           rel="noopener"
-          >babel</a
-        >
+          >
+            babel
+          </a>
       </li>
       <li>
         <a
@@ -33,9 +34,7 @@
         <a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a>
       </li>
       <li>
-        <a href="https://forum.vuejs.org" target="_blank" rel="noopener"
-          >Forum</a
-        >
+        <a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a>
       </li>
       <li>
         <a href="https://chat.vuejs.org" target="_blank" rel="noopener"
@@ -90,9 +89,11 @@
 
 <script>
 export default {
-  name: "HelloWorld",
+  name: 'hello-world',
   props: {
-    msg: String,
+    msg: {
+      type: String,
+    },
   },
 };
 </script>
