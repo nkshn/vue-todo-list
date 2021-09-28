@@ -5,10 +5,11 @@
         v-for="todo in todos"
         v-bind:todo="todo"
         :key="todo.id"
+        v-on:remove-todo="removeTodo"
       />
     </template>
     <template v-else>
-      <h3>Unfortunately, you dont have tasks! Add new one!</h3>
+      <h3>Unfortunately, you don't have tasks! Add new one!</h3>
     </template>
   </div>
 </template>
@@ -24,6 +25,11 @@ export default {
       required: true,
       default: () => [],
     },
+  },
+  methods: {
+    removeTodo: function (todoId) {
+      this.$emit("remove-todo", todoId);
+    }
   },
   components: {
     TodoItem,

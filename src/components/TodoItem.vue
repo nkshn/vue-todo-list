@@ -1,8 +1,16 @@
 <template>
-  <div class="task-item">
-    <input type="checkbox" checked v-model="todo.isDone" />
-    <p>{{ todo.name }}</p>
-    <button>delete</button>
+  <div
+    class="task-item"
+    v-bind:class="{'task-item-done': todo.isDone}"
+  >
+    <div class="task-item-left">
+      <input
+        type="checkbox"
+        v-on:change="todo.isDone = !todo.isDone"
+      />
+      <p>{{ todo.name }}</p>
+    </div>
+    <button v-on:click="$emit('remove-todo', todo.id)">delete</button>
   </div>
 </template>
 
@@ -12,7 +20,7 @@ export default {
   props: {
     todo: {
       type: Object,
-      required: true
+      required: true,
     },
   },
 };
@@ -33,10 +41,23 @@ export default {
   border-radius: 7px;
   border: 0.5px solid #b1b1b1;
   cursor: pointer;
+  gap: 20px;
+}
+.task-item-done {
+  opacity: 0.5;
+}
+.task-item-done p {
+  text-decoration: line-through;
+}
+.task-item-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 .task-item input {
   width: 20px;
   height: 20px;
+  margin-right: 20px;
 }
 .task-item p {
   font-size: 20px;

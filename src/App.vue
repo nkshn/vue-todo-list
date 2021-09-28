@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <Title name="ToDo List" />
-    <TodoList v-bind:todos="todos" />
+    <TodoList
+      v-bind:todos="todos"
+      v-on:remove-todo="removeTodo"
+    />
   </div>
 </template>
 
@@ -14,11 +17,19 @@ export default {
   data: function () {
     return {
       todos: [
-        { id: 1, name: "task 1", isDone: true, },
-        { id: 2, name: "task 2", isDone: false, },
-        { id: 3, name: "task 3", isDone: true, },
+        { id: 1, name: "task 1", isDone: false },
+        { id: 2, name: "task 2", isDone: false },
+        { id: 3, name: "task 3", isDone: false },
+        { id: 4, name: "task 4", isDone: false },
+        { id: 5, name: "task 5", isDone: false },
       ],
     };
+  },
+  methods: {
+    removeTodo: function (todoId) {
+      console.log("Removing task " + todoId);
+      this.todos = this.todos.filter(item => item.id !== todoId);
+    }
   },
   components: {
     Title,
