@@ -7,7 +7,13 @@
       v-on:remove-todo="removeTodo"
       v-on:edit-todo="editTodo"
     />
-    <Bottom v-bind:todos="todos" />
+    <Bottom
+      v-bind:todos="todos"
+      v-bind:doneTodos="doneTodos"
+
+      v-on:remove-done-todos="removeDoneTodos"
+      v-on:remove-all-todos="removeAllTodos"
+    />
   </div>
 </template>
 
@@ -27,6 +33,7 @@ export default {
   data: function () {
     return {
       todos: [],
+      doneTodos: 0,
     };
   },
   methods: {
@@ -38,7 +45,13 @@ export default {
     },
     editTodo(todo) {
       console.log("Edited todo: ", todo);
-    }
+    },
+    removeDoneTodos() {
+      this.todos = this.todos.filter((item) => item.isDone === false);
+    },
+    removeAllTodos() {
+      this.todos = [];
+    },
   },
   mounted() {
     this.todos = getLocalStorage() || [];
@@ -46,7 +59,15 @@ export default {
   watch: {
     todos: {
       handler(newValue) {
-        saveLocalStorage(newValue);
+        saveLocalStorage(newValue); // save todos to local storage
+
+        this.doneTodos = 0; // we need to clear counter for correct counting of done todos
+        
+        this.todos.forEach(item => {
+          if(item.isDone === true) {
+            this.doneTodos++;
+          }
+        })
       },
       deep: true,
     },
