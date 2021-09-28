@@ -1,12 +1,16 @@
 <template>
   <div id="app">
     <Title name="ToDo List" />
-    <AddTodo />
+    <AddTodo
+      v-on:add-todo="addTodo"
+    />
     <TodoList
       v-bind:todos="todos"
       v-on:remove-todo="removeTodo"
     />
-    <Bottom />
+    <Bottom
+      v-bind:todos="todos"
+    />
   </div>
 </template>
 
@@ -20,31 +24,24 @@ export default {
   name: "App",
   data: function () {
     return {
-      todos: [
-        { id: 1, name: "task 1", isDone: false },
-        { id: 2, name: "task 2", isDone: false },
-        { id: 3, name: "task 3", isDone: false },
-        { id: 4, name: "task 4", isDone: false },
-        { id: 5, name: "task 5", isDone: false },
-      ],
+      todos: [],
     };
   },
   methods: {
     removeTodo: function (todoId) {
       console.log("Removing task " + todoId);
       this.todos = this.todos.filter(item => item.id !== todoId);
+    },
+    addTodo: function (todo) {
+      console.log("Adding task ", todo);
+      this.todos.push(todo);
     }
   },
   watch: {
     todos: {
       handler: function (newValue, oldValue) {
         console.log("Watching todos ", " newVal: ", newValue, " oldoldVal: ", oldValue);
-        /*this.todos = this.todos.sort(function(x, y) {
-          // true values first
-          // return (x === y)? 0 : x? -1 : 1;
-          // false values first
-          return (x === y)? 0 : x? 1 : -1;
-        });*/
+        // TODO: save to localStorage newValue as new todo list
       },
       deep: true,
     }

@@ -7,7 +7,7 @@
       <input
         type="checkbox"
         v-on:change="todo.isDone = !todo.isDone"
-      />
+      /> 
       <p>{{ todo.name }}</p>
     </div>
     <button
@@ -50,7 +50,6 @@ export default {
   align-items: center;
   border-radius: 7px;
   border: 0.5px solid #b1b1b1;
-  cursor: pointer;
   gap: 20px;
 }
 .task-item-done {
