@@ -1,17 +1,28 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <Title name="ToDo List" />
+    <TodoList v-bind:todos="todos" />
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import Title from "./components/Title.vue";
+import TodoList from "./components/TodoList.vue";
 
 export default {
   name: "App",
+  data: function () {
+    return {
+      todos: [
+        { id: 1, name: "task 1", isDone: true, },
+        { id: 2, name: "task 2", isDone: false, },
+        { id: 3, name: "task 3", isDone: true, },
+      ],
+    };
+  },
   components: {
-    HelloWorld,
+    Title,
+    TodoList,
   },
 };
 </script>
@@ -24,5 +35,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.container {
+  width: 65%;
+  margin: 0 auto;
 }
 </style>
