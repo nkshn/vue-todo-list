@@ -2,18 +2,26 @@
   <div
     class="task-item"
     v-bind:class="{'task-item-done': todo.isDone}"
-    v-on:click="todo.isDone = !todo.isDone"
   >
     <div class="task-item-left">
       <input
         type="checkbox"
-        checked
-        v-model="todo.isDone"
         v-on:change="todo.isDone = !todo.isDone"
       />
       <p>{{ todo.name }}</p>
     </div>
-    <button v-on:click="$emit('remove-todo', todo.id)">delete</button>
+    <button
+      v-if="todo.isDone"
+      v-on:click="$emit('remove-todo', todo.id)"
+    >
+      delete
+    </button>
+    <button
+      v-else
+      v-on:click="$emit('edit-todo', todo.id)"
+    >
+      edit
+    </button>
   </div>
 </template>
 
@@ -32,8 +40,7 @@ export default {
 <style scoped>
 .task-item {
   display: flex;
-  width: 100%;
-  background: #e2e2e2;
+  background: #f1f1f1;
   height: 50px;
   justify-content: space-between;
   padding-top: 10px;
@@ -48,6 +55,8 @@ export default {
 }
 .task-item-done {
   opacity: 0.5;
+  background: #4caf50;
+  border: 0.5px solid #337f36;
 }
 .task-item-done p {
   text-decoration: line-through;
