@@ -2,10 +2,13 @@
   <div
     class="task-item"
     v-bind:class="{'task-item-done': todo.isDone}"
+    v-on:click="todo.isDone = !todo.isDone"
   >
     <div class="task-item-left">
       <input
         type="checkbox"
+        checked
+        v-model="todo.isDone"
         v-on:change="todo.isDone = !todo.isDone"
       />
       <p>{{ todo.name }}</p>
